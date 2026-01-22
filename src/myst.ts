@@ -16,8 +16,7 @@ import {
   ReferenceState,
   resolveReferencesPlugin,
   RRIDTransformer,
-  WikiTransformer,
-  greenTextPlugin,
+  WikiTransformer
 } from 'myst-transforms';
 import type { Root } from 'mdast';
 import { unified } from 'unified';
@@ -34,7 +33,8 @@ import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
 import {
   imageUrlSourceTransform,
   internalLinksTransform,
-  addCiteChildrenPlugin
+  addCiteChildrenPlugin,
+  greenTextPlugin
 } from './transforms';
 import { IUserExpressionMetadata } from './userExpressions';
 import { IMySTMarkdownCell } from './types';
@@ -186,6 +186,7 @@ export async function processNotebookMDAST(
     .use(resolveReferencesPlugin, { state })
     .use(addCiteChildrenPlugin)
     .use(keysPlugin)
+    .use(greenTextPlugin)
     .runSync(mdast as any, file);
 
   await internalLinksTransform(mdast, { resolver });
