@@ -16,7 +16,8 @@ import {
   ReferenceState,
   resolveReferencesPlugin,
   RRIDTransformer,
-  WikiTransformer
+  WikiTransformer,
+  greenTextPlugin,
 } from 'myst-transforms';
 import type { Root } from 'mdast';
 import { unified } from 'unified';
@@ -118,6 +119,7 @@ export async function processArticleMDAST(
     .use(resolveReferencesPlugin, { state })
     .use(addCiteChildrenPlugin)
     .use(keysPlugin)
+    .use(greenTextPlugin)
     .runSync(mdast as any, file);
 
   // Go through all links and replace the source if they are local
