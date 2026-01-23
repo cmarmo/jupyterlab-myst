@@ -74,6 +74,7 @@ export function markdownParse(text: string): Root {
     .use(basicTransformationsPlugin, {
       parser: parseMyst
     })
+    .use(greenTextPlugin)
     .runSync(mdast as any);
   return mdast as Root;
 }

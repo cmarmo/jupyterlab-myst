@@ -1,13 +1,14 @@
 import type { Plugin } from 'unified';
 import { selectAll } from 'unist-util-select';
-import type { GenericNode, GenericParent } from 'myst-common';
+import type { Root } from 'myst-spec';
+import type { GenericNode } from 'myst-common';
 
 
-export function greenTextTransform(tree: GenericParent) {
+export async function greenTextTransform(tree: Root): Promise<void> {
 
-  const textNodes = selectAll('greentext', tree) as GenericNode[];
+  const textNodes = selectAll('mystRole', tree) as GenericNode[];
 
-  textNodes.forEach(node => {
+  textNodes.forEach(async node => {
 
     // Change the node type to div
 
@@ -22,7 +23,7 @@ export function greenTextTransform(tree: GenericParent) {
   });
 }
 
-export const greenTextPlugin: Plugin<[], GenericParent, GenericParent> =
+export const greenTextPlugin: Plugin<[], Root, Root> =
 
   () => (tree) => {
 
