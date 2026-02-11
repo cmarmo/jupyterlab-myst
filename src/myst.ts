@@ -1,6 +1,9 @@
 import { mystParse } from 'myst-parser';
 import { copyNode, References } from 'myst-common';
 import {
+  greenTextRole
+} from 'myst-roles';
+import {
   abbreviationPlugin,
   basicTransformationsPlugin,
   DOITransformer,
@@ -9,6 +12,7 @@ import {
   getFrontmatter,
   GithubTransformer,
   glossaryPlugin,
+  greenTextPlugin,
   keysPlugin,
   linksPlugin,
   mathPlugin,
@@ -62,7 +66,9 @@ export function markdownParse(text: string): Root {
         ...exerciseDirectives,
         ...tabDirectives
       ],
-      roles: []
+      roles: [
+        greenTextRole,
+      ]
     });
   };
 
@@ -73,6 +79,7 @@ export function markdownParse(text: string): Root {
     .use(basicTransformationsPlugin, {
       parser: parseMyst
     })
+    .use(greenTextPlugin)
     .runSync(mdast as any);
   return mdast as Root;
 }
